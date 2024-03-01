@@ -5,16 +5,13 @@ import { NEXT_PUBLIC_URL } from './config';
 const frameMetadata = getFrameMetadata({
   buttons: [
     {
-      label: 'Story time!',
+      label: 'Bitcion',
     },
     {
-      action: 'link',
-      label: 'Link to Google',
-      target: 'https://www.google.com',
+      label: 'Ethereum',
     },
     {
-      label: 'Redirect to pictures',
-      action: 'post_redirect',
+      label: 'Solana',
     },
   ],
   image: {
@@ -22,7 +19,7 @@ const frameMetadata = getFrameMetadata({
     aspectRatio: '1:1',
   },
   input: {
-    text: 'Tell me a boat story',
+    text: 'Why you love this coin?',
   },
   postUrl: `${NEXT_PUBLIC_URL}/api/frame`,
 });
@@ -43,7 +40,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <h1>zizzamia.xyz</h1>
+      <h1>Fav Coin</h1>
     </>
   );
 }

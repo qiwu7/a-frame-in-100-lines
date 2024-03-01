@@ -5,6 +5,8 @@ import { NEXT_PUBLIC_URL } from '../../config';
 async function getResponse(req: NextRequest): Promise<NextResponse> {
   let accountAddress: string | undefined = '';
   let text: string | undefined = '';
+  let currency = '';
+  let imageSrc = '';
 
   const body: FrameRequest = await req.json();
   const { isValid, message } = await getFrameMessage(body, { neynarApiKey: 'NEYNAR_ONCHAIN_KIT' });
@@ -17,22 +19,26 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     text = message.input;
   }
 
-  if (message?.button === 3) {
-    return NextResponse.redirect(
-      'https://www.google.com/search?q=cute+dog+pictures&tbm=isch&source=lnms',
-      { status: 302 },
-    );
+  if (message?.button === 1) {
+    currency = 'bitcoin';
+    imageSrc = `${NEXT_PUBLIC_URL}/${currency}.jpeg`;
+  } else if (message?.button === 2) {
+    currency = 'ethereum';
+    imageSrc = `${NEXT_PUBLIC_URL}/${currency}.jpeg`;
+  } else if (message?.button === 3) {
+    currency = 'solana';
+    imageSrc = `${NEXT_PUBLIC_URL}/${currency}.jpeg`;
   }
 
   return new NextResponse(
     getFrameHtmlResponse({
       buttons: [
         {
-          label: `Story: ${text} 🌲🌲`,
+          label: `You love ${currency} because: ${text} 🌲🌲`,
         },
       ],
       image: {
-        src: `${NEXT_PUBLIC_URL}/park-1.png`,
+        src: imageSrc,
       },
       postUrl: `${NEXT_PUBLIC_URL}/api/frame`,
     }),
